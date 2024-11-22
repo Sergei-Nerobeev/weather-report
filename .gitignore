@@ -41,7 +41,7 @@ tmp/
 lib/
 
 # Файлы пакета
-*.jar
+#*.jar
 *.war
 *.ear
 
