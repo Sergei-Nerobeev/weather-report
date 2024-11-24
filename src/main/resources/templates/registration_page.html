@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Registration Form</title>
+</head>
+<body>
+<form th:action = "@{/registration}" method="post" th: object="${user}">
+    <input email = "email" type="text" placeholder="Email">
+    <input password = "password" type="text" placeholder="Password">
+    <input type="submit" value="Register">
+</form>
+</body>
