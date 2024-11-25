@@ -1,15 +1,20 @@
 package hu.nero.weather_report.model;
 
-import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+@Entity
+@Table(name="users")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class UserModel {
-    private Integer id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(unique = true, nullable = false)
     private String email;
+
     private String password;
     private String role;
 

@@ -4,23 +4,31 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/")
-                .permitAll()
-                .anyRequest()
-                .authenticated())
-                .formLogin(form -> form.loginPage("/").permitAll())
-                .logout(LogoutConfigurer::permitAll);
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    return httpSecurity
+        .authorizeHttpRequests(auth -> auth
+            .requestMatchers("/").permitAll()
+            .requestMatchers("/contact").permitAll()
+            .requestMatchers("/index").permitAll()
+            .requestMatchers("/register").permitAll()
+            .requestMatchers("/login").permitAll()
+            .requestMatchers("/logout").permitAll()
+            .anyRequest().authenticated()).formLogin(form -> form.defaultSuccessUrl("/", true))
+            .logout(config ->config.logoutSuccessUrl("/")).build();
+  }
 
-        return httpSecurity.build();
-    }
+  @Bean
+  public PasswordEncoder passwordEncoder(){
+    return new BCryptPasswordEncoder();
+  }
+
 }
