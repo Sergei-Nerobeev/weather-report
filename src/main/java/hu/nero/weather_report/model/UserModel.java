@@ -1,11 +1,15 @@
 package hu.nero.weather_report.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
+import org.hibernate.proxy.HibernateProxy;
 
 @Entity
 @Table(name="users")
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 public class UserModel {
 
     @Id
@@ -18,4 +22,9 @@ public class UserModel {
     private String password;
     private String role;
 
+
+    @Override
+    public final int hashCode() {
+        return this instanceof HibernateProxy proxy ? proxy.getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
+    }
 }
