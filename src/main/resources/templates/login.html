@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Weather Home Page</title>
+<!--  <link rel="stylesheet" href="styles/Style.css">-->
+  <style>
+    body {
+      display: flex; /* Используем Flexbox */
+      flex-direction: column; /* Устанавливаем направление по вертикали */
+      justify-content: center; /* Центрируем по вертикали */
+      align-items: center; /* Центрируем по горизонтали */
+      height: 70vh; /* Высота на весь экран */
+      margin: 0; /* Убираем отступы */
+      text-align: center; /* Центрируем текст внутри */
+      background-color: #87CEEB; /* Голубой фон (Sky Blue) */
+      color: #00008B; /* Темно-синий цвет шрифта (Dark Blue) */
+    }
+    h1 {
+      font-size: 4em; /* Увеличение размера заголовка */
+    }
+    form {
+      font-size: 2.0em; /* Увеличение размера текста в форме */
+       }
+    input[type="text"],
+    input[type="email"],
+    input[type="submit"] {
+      margin: 10px; /* Отступы между элементами формы */
+      padding: 15px; /* Увеличение внутреннего отступа для полей ввода */
+      width: 200px; /* Ширина полей ввода */
+      border-radius: 5px; /* Скругление углов полей ввода */
+      border: 2px solid #00008B; /* Темно-синяя рамка для полей ввода */
+    }
+    input[type="submit"] {
+      background-color: #00008B; /* Темно-синий фон для кнопок отправки */
+      color: white; /* Белый цвет текста на кнопках */
+      cursor: pointer; /* Изменение курсора при наведении на кнопку */
+      width: 150px; /* Фиксированная ширина кнопок */
+    }
+    input[type="submit"]:hover {
+      background-color: #1E90FF; /* Светло-синий фон при наведении на кнопку */
+    }
+  </style>
+  <style>
+  </style>
+</head>
+<body>
+<div th:insert="~{parts/navigation::navigation}"></div>
+<h1> WEATHER REPORTER Home Page</h1>
+<form method="get" action="/user">
+  <label>
+    <input name="login" type="text" placeholder="Enter login">
+  </label>
+  <label>
+    <input name="email" type="email" placeholder="Enter email">
+  </label>
+  <input type="submit" value="Sign In">
+  <input type="submit" value="Log In">
+</form>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Weather Home Page</title>
+  <link rel="stylesheet" href="styles/Style.css">
+</head>
+<body>
+<div class="row justify-co">
+
+<div th:insert="~{parts/navigation::navigation}"></div>
+<h1> WEATHER REPORTER Home Page</h1>
+<form method="get" action="/user">
+  <input name="login" type="text" placeholder="Enter login">
+  <input name="email" type="email" placeholder="Enter email">
+  <input type="submit" value="Check Weather">
+</form>
+<div th:insert="~{parts/footer::footer}"></div>
+</div>
+</body>
+</html>
