@@ -1,22 +1,34 @@
 package hu.nero.weather_report.controller;
 
 import hu.nero.weather_report.model.UserModel;
+import hu.nero.weather_report.repository.UserRepository;
 import hu.nero.weather_report.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.sql.DataSource;
+
 @Controller
 public class UserController {
 
   private final UserService userService;
 
+  private final DataSource dataSource;
+
+  private final UserRepository userRepository;
+
   @Autowired
-  public UserController(UserService userService) {
+  public UserController(UserService userService,
+                        @Qualifier("dataSource") DataSource dataSource,
+                        UserRepository userRepository) {
     this.userService = userService;
+    this.dataSource = dataSource;
+    this.userRepository = userRepository;
   }
 
   @GetMapping("/")

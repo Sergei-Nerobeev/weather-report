@@ -19,8 +19,11 @@ import java.util.Objects;
 @Controller
 public class UserModel {
 
+
+//  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @SequenceGenerator(name = "user_sequence",sequenceName = "user_sequence", allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   Integer id;
   String login;
   String password;
