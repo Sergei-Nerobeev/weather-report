@@ -18,7 +18,7 @@ public class UserService {
   public UserModel registerUser(String login, String password) {
 
     if (login == null && password == null) {
-      return null; // changed it to html page
+      return null; // changed it to html page?
     }
     else {
       UserModel userModel = new UserModel();
@@ -28,6 +28,6 @@ public class UserService {
     }
   }
   public UserModel authenticate(String login, String password) {
-    return userRepository.findByLoginAndPassword(login, password).orElse(null); // changed it to html page
+    return userRepository.findByLoginAndPassword(login, password).orElse(null); // changed it to html page?
   }
 }
