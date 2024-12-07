@@ -19,10 +19,10 @@ public class UserController {
     this.userService = userService;
   }
 
-  @GetMapping("/register")
+  @GetMapping("/signin")
   public String getRegisterPage(Model model) {
     model.addAttribute("registerRequest", new UserModel());
-    return "register_page";
+    return "signin_page";
   }
 
   @GetMapping("/login")
@@ -31,7 +31,7 @@ public class UserController {
     return "login_page";
   }
 
-  @PostMapping("/register")
+  @PostMapping("/signin")
   public String register(@ModelAttribute UserModel userModel) {
     System.out.println("register request: " + userModel);
     UserModel registeredUser = userService.registerUser(userModel.getLogin(), userModel.getPassword());
