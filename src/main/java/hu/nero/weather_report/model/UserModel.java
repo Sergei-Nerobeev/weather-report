@@ -1,30 +1,26 @@
 package hu.nero.weather_report.model;
 
 import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.proxy.HibernateProxy;
+import lombok.Getter;
+import lombok.Setter;
+
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 @Getter
 @Setter
-@ToString
-@RequiredArgsConstructor
 public class UserModel {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  Integer id;
 
-    @Column(unique = true, nullable = false)
-    private String email;
+  @Column
+  String login;
 
-    private String password;
-    private String role;
+  @Column
+  String password;
 
 
-    @Override
-    public final int hashCode() {
-        return this instanceof HibernateProxy proxy ? proxy.getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
-    }
+
 }
