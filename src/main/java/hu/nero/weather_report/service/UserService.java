@@ -2,6 +2,8 @@ package hu.nero.weather_report.service;
 
 import hu.nero.weather_report.model.UserModel;
 import hu.nero.weather_report.repository.UserRepository;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +12,9 @@ public class UserService {
 
   private final UserRepository userRepository;
 
-  @Autowired
-  public UserService(UserRepository userRepository) {
-    this.userRepository = userRepository;
-  }
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
   public UserModel registerUser(String login, String password) {
 

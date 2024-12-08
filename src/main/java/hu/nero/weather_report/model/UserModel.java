@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import static jakarta.persistence.GenerationType.IDENTITY;
+
 
 @Entity
 @Table(name = "users")
@@ -11,17 +13,14 @@ import lombok.Setter;
 @Setter
 public class UserModel {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userSequenceGenerator")
-  @SequenceGenerator(name = "userSequenceGenerator", sequenceName = "users_seq", allocationSize = 1)
-  Integer id;
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
+    private Integer id;
 
-  @Column
-  String login;
+    private String login;
 
-  @Column
-  String password;
-
+    private String password;
 
 
 }

@@ -1,24 +1,25 @@
-spring:
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    password: 1234
-    username: postgres
-    url: jdbc:postgresql://localhost/postgres
-  application:
-    name: weather-report
-
-jpa:
-    hibernate:
-    ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQL9Dialect
-
-server:
-  error:
-    include-message: always
-
-#logging:
-#    level:
-#    org.springframework.security: trace
+#spring:
+#  application:
+#    name: weather-report
+#  datasource:
+#    driver-class-name: org.postgresql.Driver
+#    url: jdbc:postgresql://localhost:5432/postgres
+#    password: 1234
+#    username: postgres
+#
+#
+#jpa:
+#  hibernate:
+#    ddl-auto: update
+#    show-sql: true
+#    properties:
+##      hibernate:
+##        dialect: org.hibernate.dialect.PostgreSQLDialect
+#
+##server:
+##  error:
+##    include-message: always
+#
+## logging:
+##   level:
+##     org.springframework.security: trace
