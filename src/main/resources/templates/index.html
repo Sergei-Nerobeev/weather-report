@@ -2,12 +2,41 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>INDEX</title>
+  <style>
+    body {
+      background-image: url('https://picsum.photos/3000/2000/?image=1015');
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    a {
+      font-weight: bold;
+      font-size: 60px
+      color: blue;
+      text-align: center;
+    }
+    h1 {
+      font-weight: bold;
+      font-size: 50px;
+      color: white;
+
+    }
+    .btn {
+    display: inline-block;
+    padding: 20px 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    }
+  </style>
 </head>
 <body>
 <h1>WEATHER REPORT</h1>
-<a href="/signin">Navigate to Sign in</a>
-<a href="/login">Navigate to Login</a>
+<a href="/signin" class="btn">SIGN IN</a>
+<a href="/login" class="btn">LOGIN</a>
+
 </body>
 </html>
