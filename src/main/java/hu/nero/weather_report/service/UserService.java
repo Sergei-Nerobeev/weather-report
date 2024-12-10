@@ -11,9 +11,9 @@ public class UserService {
 
   private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+  public UserService(UserRepository userRepository) {
+    this.userRepository = userRepository;
+  }
 
   public UserModel registerUser(String login, String password) {
 
@@ -21,7 +21,7 @@ public class UserService {
       return null; // changed it to html page?
     }
     else {
-      if(userRepository.findFirstByLogin(login).isPresent()) {
+      if (userRepository.findFirstByLogin(login).isPresent()) {
         System.out.println("Duplicate login");
         return null; // return?
       }
@@ -31,6 +31,7 @@ public class UserService {
       return userRepository.save(userModel);
     }
   }
+
   public UserModel authenticate(String login, String password) {
     return userRepository.findByLoginAndPassword(login, password).orElse(null); // changed it to html page?
   }
