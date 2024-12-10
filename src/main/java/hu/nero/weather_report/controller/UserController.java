@@ -2,6 +2,8 @@ package hu.nero.weather_report.controller;
 
 import hu.nero.weather_report.model.UserModel;
 import hu.nero.weather_report.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,6 +51,15 @@ public class UserController {
     else {
       return "error_page";
     }
+  }
+
+  @PostMapping("/logout")
+  public String logout(HttpServletRequest request) {
+    HttpSession session = request.getSession(false);
+    if(session != null){
+      session.invalidate();
+    }
+    return "redirect:/login";
   }
 
 }
