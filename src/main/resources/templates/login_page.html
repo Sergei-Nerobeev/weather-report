@@ -8,7 +8,7 @@
 <body>
 <div class="form">
 <!--  /process-login-->
-  <form method="post" action="/login" th:object="${usernameRequest}">
+  <form method="post" action="/auth/login" th:object="${usernameRequest}">
     <h2>Login</h2>
 
     <div class="input-box">
@@ -37,7 +37,7 @@
       Authentication Error
     </div>
     <br>
-    <a href="/register">Sign In</a>
+    <a href="/auth/register">Sign In</a>
   </form>
 
 </div>
