@@ -15,13 +15,13 @@ public class UserService {
 
   public UserModel registerUser(String username, String password) {
 
-    if (username == null && password == null) {
-      return null; // changed it to html page?
+    if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
+      throw new IllegalArgumentException("User and password must not be empty");
     }
     else {
       if (userRepository.findFirstByusername(username).isPresent()) {
         System.out.println("Duplicate login");
-        return null; // return?
+        throw new IllegalArgumentException("User with this username already exists");
       }
       UserModel userModel = new UserModel();
       userModel.setUsername(username);
@@ -31,6 +31,6 @@ public class UserService {
   }
 
   public UserModel authenticate(String username) {
-    return userRepository.findFirstByusername(username).orElse(null); // changed it to html page?
+    return userRepository.findFirstByusername(username).orElse(null); // changed it to html page or exception?
   }
 }
