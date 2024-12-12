@@ -1,18 +1,18 @@
 package hu.nero.weather_report.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 
 @Entity
 @Table(name = "users")
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @Getter
 @Setter
-@ToString
 public class UserModel {
 
     @Id
@@ -20,9 +20,12 @@ public class UserModel {
     @Column(name = "id", unique = true, nullable = false)
     private Integer id;
 
-    private String login;
+    @Column(name="username")
+    private String username;
 
+    @Column(name="password")
     private String password;
 
-
+    @Column(name="role")
+    private String role;
 }
