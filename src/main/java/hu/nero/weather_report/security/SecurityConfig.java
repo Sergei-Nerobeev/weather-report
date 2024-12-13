@@ -27,10 +27,11 @@ public class SecurityConfig {
     httpSecurity.csrf(AbstractHttpConfigurer::disable);
     httpSecurity.cors(AbstractHttpConfigurer::disable);
     httpSecurity.authorizeHttpRequests(auth -> auth
-        .requestMatchers("/","/index","/auth","/auth/login","/auth/register").permitAll()
-        .requestMatchers("/secured").authenticated()
-        .requestMatchers("/info").authenticated()
-        .requestMatchers("/admin").hasRole("ADMIN")
+                    .requestMatchers("/info").authenticated()
+                    .requestMatchers("/admin").hasRole("ADMIN")
+                    .requestMatchers("/user").hasAnyRole("ADMIN","USER")
+                    .requestMatchers("/","/index","/auth","/auth/login","/auth/register").permitAll()
+
     )
 
     .formLogin(formLogin -> formLogin
@@ -57,11 +58,16 @@ public class SecurityConfig {
     return NoOpPasswordEncoder.getInstance();
   }
 
+//  @Bean
+//  public BCryptPasswordEncoder passwordEncoder() {
+//    return new BCryptPasswordEncoder();
+//  }
 
-  @Bean
+   @Bean
   public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
       throws Exception {
     return authenticationConfiguration.getAuthenticationManager();
   }
+
 
 }

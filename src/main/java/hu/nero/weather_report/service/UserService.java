@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -62,13 +61,8 @@ public class UserService implements UserDetailsService {
         userModel.getUsername(),
         userModel.getPassword(),
         userModel.getRoles().stream()
-                 .map(roleModel -> new SimpleGrantedAuthority(roleModel.getName()))
+                 .map(roleModel -> new SimpleGrantedAuthority(roleModel.getTitle()))
                  .collect(Collectors.toList())
     );
-  }
-
-  public void createNewUser(UserModel userModel) {
-    userModel.setRoles(List.of(roleRepository.findRoleByName("ROLE_USER").get()));
-    userRepository.save(userModel);
   }
 }
