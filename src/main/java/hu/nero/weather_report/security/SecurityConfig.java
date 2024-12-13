@@ -1,5 +1,6 @@
 package hu.nero.weather_report.security;
 
+import hu.nero.weather_report.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +27,7 @@ public class SecurityConfig {
     httpSecurity.csrf(AbstractHttpConfigurer::disable);
     httpSecurity.cors(AbstractHttpConfigurer::disable);
     httpSecurity.authorizeHttpRequests(auth -> auth
-        .requestMatchers("/", "/auth","/auth/login","/auth/register").permitAll()
+        .requestMatchers("/","/index","/auth","/auth/login","/auth/register").permitAll()
         .requestMatchers("/secured").authenticated()
         .requestMatchers("/info").authenticated()
         .requestMatchers("/admin").hasRole("ADMIN")
@@ -38,7 +39,7 @@ public class SecurityConfig {
         .loginProcessingUrl("/auth/process-login")
     )
 
-    .logout(logout -> logout.logoutUrl("/auth/logout").logoutSuccessUrl("/auth/login"));
+    .logout(logout -> logout.logoutUrl("/auth/logout").logoutSuccessUrl("/"));
 
     return httpSecurity.build();
   }

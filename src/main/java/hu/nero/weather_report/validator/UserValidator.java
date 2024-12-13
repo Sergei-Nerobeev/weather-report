@@ -1,7 +1,7 @@
 package hu.nero.weather_report.validator;
 
 import hu.nero.weather_report.model.UserModel;
-import hu.nero.weather_report.security.UserService;
+import hu.nero.weather_report.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;

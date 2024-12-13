@@ -1,7 +1,7 @@
 package hu.nero.weather_report.controller;
 
 import hu.nero.weather_report.model.UserModel;
-import hu.nero.weather_report.security.UserService;
+import hu.nero.weather_report.service.UserService;
 import hu.nero.weather_report.validator.UserValidator;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -22,12 +22,11 @@ public class UserController {
   private final UserService userService;
   private final UserValidator userValidator;
 
-   @Autowired
+  @Autowired
   public UserController(UserService userService, UserValidator userValidator) {
     this.userService = userService;
     this.userValidator = userValidator;
   }
-
 
   @GetMapping("/register")
   public String getRegisterPage(Model model) {
@@ -38,8 +37,8 @@ public class UserController {
   @PostMapping("/register")
   public String register(@Valid @ModelAttribute UserModel userModel, BindingResult bindingResult) {
     System.out.println("register request: " + userModel);
+    userValidator.validate(userModel, bindingResult);
     UserModel registeredUser = userService.registerUser(userModel.getUsername(), userModel.getPassword());
-    userValidator.validate(userModel,bindingResult);
     return registeredUser == null ? "error_page" : "redirect:/auth/login";
   }
 
@@ -68,7 +67,7 @@ public class UserController {
     if (session != null) {
       session.invalidate();
     }
-    return "redirect:/auth/login";
+    return "/";
   }
 
 }
