@@ -4,6 +4,7 @@ import hu.nero.weather_report.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -26,21 +27,29 @@ public class SecurityConfig {
 
     httpSecurity.csrf(AbstractHttpConfigurer::disable);
     httpSecurity.cors(AbstractHttpConfigurer::disable);
-    httpSecurity.authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/info").authenticated()
-                    .requestMatchers("/admin").hasRole("ADMIN")
-                    .requestMatchers("/user").hasAnyRole("ADMIN","USER")
-                    .requestMatchers("/","/index","/auth","/auth/login","/auth/register").permitAll()
+    httpSecurity.authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
+                    .requestMatchers("/info")
+                    .authenticated()
+                    .requestMatchers("/admin")
+                    .hasRole("ADMIN")
+                    .requestMatchers("/user")
+                    .hasAnyRole("ADMIN", "USER")
+                    .requestMatchers("/", "/reports", "/home", "/create", "/report", "/auth", "/auth/login", "/auth/register")
+                    .permitAll()
+                    .requestMatchers(HttpMethod.GET, "/reports/create")
+                    .permitAll()
+                    .requestMatchers(HttpMethod.POST, "/reports/create")
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated())
 
-    )
+                .formLogin(formLogin -> formLogin
+                    .loginPage("/auth/login")
+                    .failureUrl("/auth/login?error")
+                    .loginProcessingUrl("/auth/process-login")
+                )
 
-    .formLogin(formLogin -> formLogin
-        .loginPage("/auth/login")
-        .failureUrl("/auth/login?error")
-        .loginProcessingUrl("/auth/process-login")
-    )
-
-    .logout(logout -> logout.logoutUrl("/auth/logout").logoutSuccessUrl("/"));
+                .logout(logout -> logout.logoutUrl("/auth/logout").logoutSuccessUrl("/"));
 
     return httpSecurity.build();
   }
@@ -63,11 +72,10 @@ public class SecurityConfig {
 //    return new BCryptPasswordEncoder();
 //  }
 
-   @Bean
+  @Bean
   public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
       throws Exception {
     return authenticationConfiguration.getAuthenticationManager();
   }
-
 
 }

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Create</title>
+</head>
+<body>
+<form method="POST" action="/reports/createReport" th:object="${newReport}">
+  <input type="text" name="lat" placeholder="Lat">
+  <input type="text" name="lan" placeholder="Lan">
+  <input type="submit" value="Save">
+</form>
+</body>
+</html>

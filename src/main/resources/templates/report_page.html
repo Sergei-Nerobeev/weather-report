@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8" >
+  <title>Report</title>
+  <link rel="stylesheet" href="styles/home.css">
+</head>
+<body>
+<div th:insert="~{parts/navigation::navigation}"></div>
+<h1>Report Page   <span th:text="${' ' + username}"></span></h1>
+<table>
+  <tr>
+    <th>Lat</th>
+    <th>Lon</th>
+    <th></th>
+  </tr>
+  <th:block th:each="report : ${userReports}">
+  <tr>
+    <td th:text="${report.lat}"></td>
+    <td th:text="${report.lon}"></td>
+    <td></td>
+  </tr>
+  </th:block>
+</table>
+</body>
+</html>
