@@ -23,10 +23,28 @@ public class ReportService {
     if (username != null) {
       return reports;
     }
-    return reports.stream().filter(lat ->lat.getLat() > 30.2).toList();
+    return reports.stream().filter(lat -> lat.getLat() > 30.2).toList();
   }
-  public void save(ReportModel report){
+
+  public void save(ReportModel report) {
     reports.add(report);
   }
 
+  public ReportModel findByLatitudeAndDelete(Double lat) throws IllegalAccessException {
+    ReportModel reportModel = reports.stream()
+                                     .filter(it -> it.getLat()
+                                     .equals(lat))
+                                     .findFirst()
+                                     .orElseThrow(IllegalAccessException::new);
+    reports.remove(reportModel);
+    return reportModel;
+  }
+
+  public void edit(ReportModel report) {
+    save(report);
+  }
+
+  public void delete(Double lat) throws IllegalAccessException {
+    findByLatitudeAndDelete(lat);
+  }
 }

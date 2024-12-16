@@ -13,14 +13,18 @@
     <th>Lat</th>
     <th>Lon</th>
     <th></th>
+    <th></th>
   </tr>
   <th:block th:each="report : ${userReports}">
   <tr>
     <td th:text="${report.lat}"></td>
     <td th:text="${report.lon}"></td>
-    <td></td>
+    <td><button><a th:href="@{|/reports/edit/${report.lat}|}">Edit</a></button></td>
+    <td><button><a th:href="@{|/reports/delete/${report.lat}|}">Delete</a></button></td>
   </tr>
   </th:block>
 </table>
+<br>
+<a href="/reports/create">Add new report</a>
 </body>
 </html>

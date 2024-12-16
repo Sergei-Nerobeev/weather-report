@@ -42,6 +42,12 @@ public class SecurityConfig {
                     .permitAll()
                     .requestMatchers(HttpMethod.POST, "/reports/createReport")
                     .permitAll()
+                    .requestMatchers(HttpMethod.GET, "/reports/edit/*")
+                    .permitAll()
+                    .requestMatchers(HttpMethod.POST, "/reports/editReport")
+                    .permitAll()
+                    .requestMatchers(HttpMethod.GET, "/reports/delete/*")
+                    .permitAll()
                     .anyRequest()
                     .authenticated())
 

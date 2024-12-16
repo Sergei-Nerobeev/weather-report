@@ -38,17 +38,36 @@ public class ReportController {
     return "report_page";
 
   }
+
   @GetMapping("/create")
-  public String getCreateReportPage(Model model){
+  public String getCreateReportPage(Model model) {
     model.addAttribute("newReport", new ReportModel());
     return "create_report_page";
   }
 
   @PostMapping("/createReport")
   public String createReport(@ModelAttribute ReportModel report) {
-     reportService.save(report);
-     return "redirect:/reports";
+    reportService.save(report);
+    return "redirect:/reports";
   }
 
+  @GetMapping("/edit/{lat}")
+  public String getEditBookPage(Model model, @PathVariable Double lat) throws IllegalAccessException {
+    ReportModel byLatitude = reportService.findByLatitudeAndDelete(lat);
+    model.addAttribute("reportToEdit", byLatitude);
+    return "edit_report_page";
+  }
+
+  @PostMapping("/editReport")
+  public String editBook(@ModelAttribute ReportModel report) {
+    reportService.edit(report);
+    return "redirect:/reports";
+  }
+
+  @GetMapping("/delete/{lat}")
+  public String delete(@PathVariable Double lat) throws IllegalAccessException {
+    reportService.delete(lat);
+    return "redirect:/reports";
+  }
 
 }
