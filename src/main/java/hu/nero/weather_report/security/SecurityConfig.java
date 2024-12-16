@@ -40,6 +40,8 @@ public class SecurityConfig {
                     .permitAll()
                     .requestMatchers(HttpMethod.POST, "/reports/create")
                     .permitAll()
+                    .requestMatchers(HttpMethod.POST, "/reports/createReport")
+                    .permitAll()
                     .anyRequest()
                     .authenticated())
 
