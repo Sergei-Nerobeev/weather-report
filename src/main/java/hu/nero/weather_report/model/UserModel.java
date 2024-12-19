@@ -31,9 +31,12 @@ public class UserModel {
     @Size(min = 3,max = 6, message = "Username should be from 3 to 6 chars")
     private String password;
 
-    @ManyToMany
-    @JoinTable(name = "users_roles",
-               joinColumns = @JoinColumn(name = "user_id"),
-               inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Collection<RoleModel> roles;
+
+    @Column(name="role")
+    private String role;
+//    @ManyToMany
+//    @JoinTable(name = "users_roles",
+//               joinColumns = @JoinColumn(name = "user_id"),
+//               inverseJoinColumns = @JoinColumn(name = "role_id"))
+//    private Collection<RoleModel> roles;
 }
