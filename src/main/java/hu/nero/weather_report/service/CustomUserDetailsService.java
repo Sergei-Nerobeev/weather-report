@@ -1,8 +1,6 @@
 package hu.nero.weather_report.service;
 
 import hu.nero.weather_report.model.UserModel;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -13,12 +11,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-@NoArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
   @Autowired
-  private final UserService userService;
-
+  private  UserService userService;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -27,9 +23,9 @@ public class CustomUserDetailsService implements UserDetailsService {
       throw new UsernameNotFoundException("User == null");
     }
     return User.builder()
-               .username(byLogin.())
+               .username(byLogin.getUsername())
                .password(byLogin.getPassword())
-               .roles(byLogin.getRole())
+               .roles(byLogin.getRole().name())
                .build();
   }
 }

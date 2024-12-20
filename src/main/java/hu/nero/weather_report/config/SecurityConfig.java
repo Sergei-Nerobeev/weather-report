@@ -6,7 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -18,7 +19,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
+@EnableMethodSecurity
 public class SecurityConfig {
 
   @Bean
@@ -49,18 +50,14 @@ public class SecurityConfig {
                     .authenticated())
 
                 .formLogin(formLogin -> formLogin
-                    .loginPage("/login").permitAll()
-                )
+                    .loginPage("/login").permitAll())
+
 
                 .logout(LogoutConfigurer::permitAll);
 
     return httpSecurity.build();
   }
-//
-//  @Bean
-//  public PasswordEncoder passwordEncoder() { // Заглушка
-//    return NoOpPasswordEncoder.getInstance();
-//  }
+
 
   @Bean
   public PasswordEncoder passwordEncoder() {
@@ -74,8 +71,10 @@ public class SecurityConfig {
 
   @Bean
   public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-
-    return null;
+    AuthenticationManagerBuilder authenticationManagerBuilder =
+        http.getSharedObject(AuthenticationManagerBuilder.class);
+    authenticationManagerBuilder.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
+    return authenticationManagerBuilder.build();
   }
 
 }

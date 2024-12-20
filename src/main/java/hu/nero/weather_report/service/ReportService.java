@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public class ReportService {
 
-  private static final List<ReportModel> reports;
+  private static List<ReportModel> reports;
 
   static {
 
@@ -27,13 +27,16 @@ public class ReportService {
   }
 
   public void save(ReportModel report) {
+    if (report.getLat() == null)  {
+      throw new IllegalArgumentException("Latitude or Longitude must not be null");
+    }
     reports.add(report);
   }
 
   public ReportModel findByLatitudeAndDelete(Double lat) throws IllegalAccessException {
     ReportModel reportModel = reports.stream()
                                      .filter(it -> it.getLat()
-                                     .equals(lat))
+                                                     .equals(lat))
                                      .findFirst()
                                      .orElseThrow(IllegalAccessException::new);
     reports.remove(reportModel);

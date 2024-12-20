@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
-import java.util.Collection;
-
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 
@@ -33,7 +31,7 @@ public class UserModel {
 
 
     @Column(name="role")
-    private String role;
+    private UserRole role;
 //    @ManyToMany
 //    @JoinTable(name = "users_roles",
 //               joinColumns = @JoinColumn(name = "user_id"),

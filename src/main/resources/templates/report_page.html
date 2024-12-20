@@ -8,7 +8,12 @@
 </head>
 <body>
 <div th:insert="~{parts/navigation::navigation}"></div>
-<h1>Report Page <span th:text="${' ' + username}"></span></h1>
+<h1>Welcome to your report - <span th:text="${' ' + username}"></span></h1>
+<form th:action="@{/logout}" method="POST">
+<input type="submit" value="Logout">
+</form>
+<br>
+<br>
 <table>
   <tr>
     <th>Lat</th>

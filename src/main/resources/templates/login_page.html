@@ -1,49 +1,38 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <title>Login Page</title>
-
 </head>
 <body>
 <div th:if="${param.success}" style="color:blue">
   You successfully registered.Please use your credentials to log in.
 </div>
-<div class="form">
-<!--  /process-login-->
-  <form method="POST" th:action="@{/login}">
-    <h2>Login</h2>
-
-    <div class="input-box">
-      <i class="fa fa-user" aria-hidden="true"></i>
-      <label>
-        <input type="text" name="username" placeholder="User name">
-      </label>
-    </div>
-    <br>
-
-    <div class="input-box">
-      <i class="fa fa-unlock-alt" aria-hidden="true"></i>
-      <label>
-        <input type="password" name="password" placeholder="Password">
-      </label>
-      <!--             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"-->
-      <!--             title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>-->
-    </div>
-    <br>
-
-    <div class="input-box">
-      <input type="submit" name="name" value="Login">
-    </div>
-    <br>
-    <div th:if="${param.error}" style="color:red">
-      Authentication Error
-    </div>
-    <br>
-    <a href="/">Main Page</a>
-  </form>
-
+<div th:if="${param.error}" style="color:red">
+  Username or password incorrect.
 </div>
+<div th:if="${param.logout}" style="color:red">
+  You have been logged out.
+</div>
+<h2>Login</h2>
+  <form method="POST" th:action="@{/login}">
+    <label>
+      <input type="text" name="username" placeholder="User name">
+    </label>
+    <br>
+    <br>
+    <label>
+      <input type="password" name="password" placeholder="Password">
+    </label>
+
+    <!-- pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"-->
+      <!-- title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>-->
+    <br>
+    <br>
+      <input type="submit" name="name" value="Login">
+    <br>
+    <br>
+  </form>
+   <a href="/">Main page</a>
 </body>
 </html>

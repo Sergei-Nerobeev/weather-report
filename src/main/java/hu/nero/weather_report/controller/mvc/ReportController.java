@@ -2,9 +2,10 @@ package hu.nero.weather_report.controller.mvc;
 
 import hu.nero.weather_report.model.ReportModel;
 import hu.nero.weather_report.service.ReportService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,22 +22,15 @@ public class ReportController {
 
   @GetMapping
   public String getReportPage(
-      @RequestParam(required = false, name = "username") String username,
-      @RequestParam(required = false) String password,
       Model model,
-      HttpServletRequest request) {
+      @AuthenticationPrincipal UserDetails userDetails) {
 
-    HttpSession session = request.getSession();
-    if (username != null && !username.isEmpty()) {
-      session.setAttribute(USER_NAME, username);
-    }
-    String userName = (String) session.getAttribute(USER_NAME);
-    model.addAttribute(USER_NAME, userName);
+    String username = userDetails.getUsername();
+    model.addAttribute(USER_NAME, username);
 
     List<ReportModel> reports = reportService.getAllReportsByUsername(username);
     model.addAttribute("userReports", reports);
     return "report_page";
-
   }
 
   @GetMapping("/create")
@@ -65,6 +59,7 @@ public class ReportController {
   }
 
   @GetMapping("/delete/{lat}")
+  @PreAuthorize("hasRole('ADMIN')")
   public String delete(@PathVariable Double lat) throws IllegalAccessException {
     reportService.delete(lat);
     return "redirect:/reports";
