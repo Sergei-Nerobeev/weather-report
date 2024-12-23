@@ -18,6 +18,6 @@ public class RoleModel {
   private Integer id;
 
   @Column(name = "title")
-  private String title;
+  private Short title;
 
 }
