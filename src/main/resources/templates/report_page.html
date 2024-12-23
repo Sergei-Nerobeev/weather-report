@@ -26,7 +26,7 @@
     <td th:text="${report.lat}"></td>
     <td th:text="${report.lon}"></td>
     <td><button><a th:href="@{|/reports/edit/${report.lat}|}">Edit</a></button></td>
-    <td><button><a th:href="@{|/reports/delete/${report.lat}|}">Delete</a></button></td>
+    <td sec:authorize="hasRole('ADMIN')"><button><a th:href="@{|/reports/delete/${report.lat}|}">Delete</a></button></td>
   </tr>
   </th:block>
 </table>

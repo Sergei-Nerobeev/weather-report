@@ -1,7 +1,6 @@
 package hu.nero.weather_report.config;
 
 import hu.nero.weather_report.service.CustomUserDetailsService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -50,7 +49,9 @@ public class SecurityConfig {
                     .authenticated())
 
                 .formLogin(formLogin -> formLogin
-                    .loginPage("/login").permitAll())
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/reports", true)
+                    .permitAll())
 
 
                 .logout(LogoutConfigurer::permitAll);
