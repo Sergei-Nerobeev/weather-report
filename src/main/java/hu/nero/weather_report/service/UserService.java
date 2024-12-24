@@ -1,37 +1,43 @@
 package hu.nero.weather_report.service;
 
 import hu.nero.weather_report.model.UserModel;
-import hu.nero.weather_report.repository.UserRepository;
-import lombok.ToString;
+import hu.nero.weather_report.model.UserRole;
+import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
-@ToString
+@RequiredArgsConstructor
 public class UserService {
 
-  private final UserRepository userRepository;
+  protected static List<UserModel> users = new ArrayList<>();
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+  private final PasswordEncoder passwordEncoder;
 
-  public UserModel registerUser(String login, String password) {
-
-    if (login == null && password == null) {
-      return null; // changed it to html page?
-    }
-    else {
-      if(userRepository.findFirstByLogin(login).isPresent()) {
-        System.out.println("Duplicate login");
-        return null; // return?
-      }
-      UserModel userModel = new UserModel();
-      userModel.setLogin(login);
-      userModel.setPassword(password);
-      return userRepository.save(userModel);
-    }
+  @PostConstruct
+  public void postConstruct() {
+    UserModel user = new UserModel();
+    user.setRole(UserRole.ADMIN);
+    user.setUsername("admin");
+    user.setPassword(passwordEncoder.encode("admin"));
+    users.add(user);
   }
-  public UserModel authenticate(String login, String password) {
-    return userRepository.findByLoginAndPassword(login, password).orElse(null); // changed it to html page?
+
+  public void register(UserModel user) {
+
+    user.setRole(UserRole.USER);
+    user.setPassword(passwordEncoder.encode(user.getPassword()));
+    users.add(user);
+  }
+
+  public UserModel findByUsername(String username) {
+    return users.stream().filter(user -> user.getUsername()
+                                             .equals(username))
+                .findFirst()
+                .orElse(null);
   }
 }

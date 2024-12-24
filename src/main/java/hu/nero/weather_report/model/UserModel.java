@@ -1,16 +1,19 @@
 package hu.nero.weather_report.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.validation.constraints.Size;
+import lombok.*;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 
 @Entity
-@Table(name = "users")
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @Getter
 @Setter
+@Table(name = "users")
 public class UserModel {
 
     @Id
@@ -18,9 +21,20 @@ public class UserModel {
     @Column(name = "id", unique = true, nullable = false)
     private Integer id;
 
-    private String login;
+    @Column(name="username")
+    @Size(min = 3,max = 6, message = "Username should be from 3 to 6 chars")
+    private String username;
 
+    @Column(name="password")
+    @Size(min = 3,max = 6, message = "Username should be from 3 to 6 chars")
     private String password;
 
 
+    @Column(name="role")
+    private UserRole role;
+//    @ManyToMany
+//    @JoinTable(name = "users_roles",
+//               joinColumns = @JoinColumn(name = "user_id"),
+//               inverseJoinColumns = @JoinColumn(name = "role_id"))
+//    private Collection<RoleModel> roles;
 }

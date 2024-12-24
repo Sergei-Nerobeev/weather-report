@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+  <meta charset="UTF-8">
+  <title>Home Page</title>
+  <link rel="stylesheet" href="styles/home.css">
+</head>
+<body>
+
+<div th:insert="~{parts/navigation::navigation}"></div>
+<br>
+<h1>Home Page</h1>
+<h2>To proceed with weather reports please authorise</h2>
+<a href="/login" class="button">Login</a>
+<br>
+<br>
+<p>Do not have account? Please register</p>
+<br>
+<a href="/register" class="button">Registration</a>
+
+<!--<form method="GET" action="/reports">-->
+<!--  <input name="username" type="text" placeholder="Enter username">-->
+<!--  <input name="password" type="password" placeholder="Enter password">-->
+<!--  <input type="submit" value="Show my reports">-->
+<!--</form>-->
+</body>
+</html>
