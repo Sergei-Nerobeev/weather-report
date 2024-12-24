@@ -27,10 +27,14 @@ public class UserController {
   }
 
   @PostMapping("/register")
-  public String registerUser(@ModelAttribute UserModel user) {
-  userService.register(user);
-  return "redirect:/login?success";
+  public String registerUser(@ModelAttribute UserModel user, Model model) {
+    if (user.getUsername().isEmpty() || user.getPassword().isEmpty()) {
+      model.addAttribute("errorMessage", "Username or password cannot be empty.");
+      return "error_page";
+    }
+    model.addAttribute("successMessage", "User successfully registered");
+    userService.register(user);
+    return "redirect:/login?success";
   }
-
 
 }

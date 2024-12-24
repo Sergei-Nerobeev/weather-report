@@ -28,9 +28,7 @@ public class UserService {
   }
 
   public void register(UserModel user) {
-    if(user.getUsername().isEmpty() || user.getPassword().isEmpty()) {
-      throw new IllegalArgumentException("WARN");
-    }
+
     user.setRole(UserRole.USER);
     user.setPassword(passwordEncoder.encode(user.getPassword()));
     users.add(user);
