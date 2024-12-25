@@ -8,6 +8,12 @@
 <body>
 <form method="POST" th:action="@{/register}" th:object="${username}">
   <h2>Registration</h2>
+
+  <!-- Сообщение об ошибке -->
+  <div th:if="${errorMessage}" style="color:red">
+    <p th:text="${errorMessage}"></p>
+  </div>
+
   <label>
     <input type="text" name="username" placeholder="User name" th:field="*{username}" required>
   </label>
@@ -19,20 +25,15 @@
   <br>
   <br>
   <input type="submit" name="register" value="Register">
-  <br>
-  <br>
+
+  <!-- Сообщение об успешной регистрации -->
+  <div th:if="${successMessage}" style="color:green">
+    <p th:text="${successMessage}"></p>
+  </div>
   <button onclick="window.location.href='/'">Main Page</button>
   <br>
   <br>
   <button onclick="window.location.href='/login'">Login</button>
 </form>
-<!-- Сообщение об ошибке -->
-<div th:if="${errorMessage}" style="color:red">
-  <p th:text="${errorMessage}"></p>
-</div>
-<!-- Сообщение об успешной регистрации -->
-<div th:if="${successMessage}" style="color:green">
-  <p th:text="${successMessage}"></p>
-</div>
 </body>
 </html>

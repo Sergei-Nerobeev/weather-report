@@ -27,38 +27,27 @@ public class SecurityConfig {
     httpSecurity.csrf(AbstractHttpConfigurer::disable);
     httpSecurity.cors(AbstractHttpConfigurer::disable);
     httpSecurity.authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                    .requestMatchers("/admin")
-                    .hasRole("ADMIN")
-                    .requestMatchers("/user")
-                    .hasAnyRole("ADMIN", "USER")
-                    .requestMatchers("/", "/reports", "/styles/*", "/home", "/create", "/report", "/login", "/register")
-                    .permitAll()
-                    .requestMatchers(HttpMethod.GET, "/reports/create")
-                    .permitAll()
-                    .requestMatchers(HttpMethod.POST, "/reports/create")
-                    .permitAll()
-                    .requestMatchers(HttpMethod.POST, "/reports/createReport")
-                    .permitAll()
-                    .requestMatchers(HttpMethod.GET, "/reports/edit/*")
-                    .permitAll()
-                    .requestMatchers(HttpMethod.POST, "/reports/editReport")
-                    .permitAll()
-                    .requestMatchers(HttpMethod.GET, "/reports/delete/*")
-                    .permitAll()
-                    .anyRequest()
-                    .authenticated())
+                    .requestMatchers("/admin").hasRole("ADMIN")
+                    .requestMatchers("/user").hasAnyRole("ADMIN", "USER")
+                    .requestMatchers("/", "/reports", "/styles/*", "/home", "/create", "/report", "/login", "/register").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/reports/create").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/reports/create").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/reports/createReport").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/reports/edit/*").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/reports/editReport").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/reports/delete/*").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                    .anyRequest().authenticated())
 
                 .formLogin(formLogin -> formLogin
                     .loginPage("/login")
                     .defaultSuccessUrl("/reports", true)
                     .permitAll())
 
-
                 .logout(LogoutConfigurer::permitAll);
 
     return httpSecurity.build();
   }
-
 
   @Bean
   public PasswordEncoder passwordEncoder() {

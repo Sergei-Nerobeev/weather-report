@@ -20,6 +20,17 @@ public class UserController {
     return "login_page";
   }
 
+  @PostMapping("/login")
+  public String login(@ModelAttribute UserModel userModel) {
+    UserModel authenticated = userService.authenticate(userModel.getUsername(), userModel.getPassword());
+    if (authenticated != null) {
+      return "report_page";
+    }
+    else {
+      return "error_page";
+    }
+  }
+
   @GetMapping("/register")
   public String getRegistrationPage(Model model) {
     model.addAttribute("username", new UserModel());
@@ -28,10 +39,6 @@ public class UserController {
 
   @PostMapping("/register")
   public String registerUser(@ModelAttribute UserModel user, Model model) {
-    if (user.getUsername().isEmpty() || user.getPassword().isEmpty()) {
-      model.addAttribute("errorMessage", "Username or password cannot be empty.");
-      return "error_page";
-    }
     model.addAttribute("successMessage", "User successfully registered");
     userService.register(user);
     return "redirect:/login?success";
