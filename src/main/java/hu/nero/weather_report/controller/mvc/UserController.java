@@ -40,7 +40,7 @@ public class UserController {
   @PostMapping("/register")
   public String registerUser(@ModelAttribute UserModel user, Model model) {
     model.addAttribute("successMessage", "User successfully registered");
-    userService.register(user);
+    userService.register(user.getUsername(),user.getPassword());
     return "redirect:/login?success";
   }
 

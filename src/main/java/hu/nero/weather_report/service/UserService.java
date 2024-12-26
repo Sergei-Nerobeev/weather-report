@@ -30,34 +30,35 @@ public class UserService {
     users.add(user);
   }
 
-  public void register(UserModel user) {
-    if (user.getUsername().isEmpty() || user.getPassword().isEmpty()) {
+  public UserModel register(String username, String password) {
+    if (username == null || password == null) {
       throw new IllegalArgumentException("Username or password are empty!");
+    } else {
+      if(usersRepository.findFirstByUsername(username).isPresent()) {
+        System.out.println("Duplicate username");
+        return null;
+      }
+      UserModel userModel = new UserModel();
+      userModel.setRole(UserRole.USER);
+      userModel.setPassword(passwordEncoder.encode(password));
+//      users.add(userModel);
+      return usersRepository.save(userModel);
     }
-    if (usersRepository.findByUsername(String.valueOf(user)).isEmpty()) {
-      user.setRole(UserRole.USER);
-      user.setPassword(passwordEncoder.encode(user.getPassword()));
-      users.add(user);
-      usersRepository.save(user);
-    }
-    else {
-      throw new IllegalArgumentException("Such a username already exists");
-    }
-
   }
 
   public UserModel findByUsername(String username) {
     return users.stream()
                 .filter(user -> user
-                .getUsername()
-                .equals(username))
+                    .getUsername()
+                    .equals(username))
                 .findFirst()
                 .orElse(null);
 
   }
+
   public UserModel findByUsernameInDataBase(String username) {
-    return usersRepository.
-        findByUsername(username)
+    return usersRepository
+        .findByUsername(username)
         .orElseThrow(() -> new UsernameNotFoundException(String.format("User '%s' not found", username)));
 
   }
