@@ -40,6 +40,7 @@ public class UserService {
       }
       UserModel userModel = new UserModel();
       userModel.setRole(UserRole.USER);
+      userModel.setUsername(username);
       userModel.setPassword(passwordEncoder.encode(password));
 //      users.add(userModel);
       return usersRepository.save(userModel);
