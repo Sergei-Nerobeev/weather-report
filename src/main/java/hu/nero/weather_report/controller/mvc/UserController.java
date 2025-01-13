@@ -2,18 +2,21 @@ package hu.nero.weather_report.controller.mvc;
 
 import hu.nero.weather_report.model.UserModel;
 import hu.nero.weather_report.service.UserService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-@RequiredArgsConstructor
 public class UserController {
 
   private final UserService userService;
+
+  @Autowired
+  public UserController(UserService userService) {
+    this.userService = userService;
+  }
 
   @GetMapping("/login")
   public String getLoginPage() {
@@ -27,14 +30,14 @@ public class UserController {
   }
 
   @PostMapping("/register")
-  public String registerUser(@ModelAttribute UserModel user, Model model) {
-    if (user.getUsername().isEmpty() || user.getPassword().isEmpty()) {
-      model.addAttribute("errorMessage", "Username or password cannot be empty.");
+  public String registerUser(UserModel userModel, Model model) {
+    if (!userService.findUserInDataBase(userModel)) {
+      userService.register(userModel);
+      return "redirect:/login?success";
+    }
+    else {
       return "error_page";
     }
-    model.addAttribute("successMessage", "User successfully registered");
-    userService.register(user);
-    return "redirect:/login?success";
   }
 
 }
