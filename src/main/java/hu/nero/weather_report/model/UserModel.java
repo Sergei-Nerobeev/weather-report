@@ -1,11 +1,9 @@
 package hu.nero.weather_report.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
-
 
 @Entity
 @NoArgsConstructor
@@ -22,13 +20,12 @@ public class UserModel {
     private Integer id;
 
     @Column(name="username")
-    @Size(min = 3,max = 6, message = "Username should be from 3 to 6 chars")
+//    @Size(min = 3,max = 6, message = "Username should be from 3 to 6 chars")
     private String username;
 
     @Column(name="password")
-    @Size(min = 3,max = 6, message = "Username should be from 3 to 6 chars")
+//    @Size(min = 3,max = 6, message = "Username should be from 3 to 6 chars")
     private String password;
-
 
     @Column(name="role")
     private UserRole role;

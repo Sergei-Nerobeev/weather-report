@@ -2,42 +2,46 @@ package hu.nero.weather_report.service;
 
 import hu.nero.weather_report.model.UserModel;
 import hu.nero.weather_report.model.UserRole;
-import jakarta.annotation.PostConstruct;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import hu.nero.weather_report.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
-@RequiredArgsConstructor
 public class UserService {
 
-  protected static List<UserModel> users = new ArrayList<>();
+  private final UserRepository userRepository;
 
-  private final PasswordEncoder passwordEncoder;
-
-  @PostConstruct
-  public void postConstruct() {
-    UserModel user = new UserModel();
-    user.setRole(UserRole.ADMIN);
-    user.setUsername("admin");
-    user.setPassword(passwordEncoder.encode("admin"));
-    users.add(user);
+  @Autowired
+  public UserService(UserRepository userRepository) {
+    this.userRepository = userRepository;
   }
 
-  public void register(UserModel user) {
+  private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-    user.setRole(UserRole.USER);
-    user.setPassword(passwordEncoder.encode(user.getPassword()));
-    users.add(user);
+  public UserModel register(UserModel userModel) {
+    userModel.setRole(UserRole.USER);
+    userModel.setUsername(userModel.getUsername());
+    userModel.setPassword(encoder.encode(userModel.getPassword()));
+    return userRepository.save(userModel);
   }
 
-  public UserModel findByUsername(String username) {
-    return users.stream().filter(user -> user.getUsername()
-                                             .equals(username))
-                .findFirst()
-                .orElse(null);
+  public boolean findUserInDataBase(UserModel userModel) {
+    UserModel userFromDb = userRepository.findByUsername(userModel.getUsername());
+    return userFromDb == null || userModel.getUsername().equals(userFromDb.getUsername());
   }
+
+  //  protected static List<UserModel> users = new ArrayList<>();
+
+//  private final PasswordEncoder passwordEncoder;
+//
+//  @PostConstruct
+//  public void postConstruct() {
+//    UserModel user = new UserModel();
+//    user.setRole(UserRole.ADMIN);
+//    user.setUsername("admin");
+//    user.setPassword(passwordEncoder.encode("admin"));
+//    users.add(user);
+//  }
+
 }

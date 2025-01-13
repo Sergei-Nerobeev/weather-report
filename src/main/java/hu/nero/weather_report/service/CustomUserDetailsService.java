@@ -1,31 +1,30 @@
 package hu.nero.weather_report.service;
 
 import hu.nero.weather_report.model.UserModel;
-import lombok.RequiredArgsConstructor;
+import hu.nero.weather_report.model.UserPrincipal;
+import hu.nero.weather_report.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
+  private final UserRepository userRepository;
+
   @Autowired
-  private  UserService userService;
+  public CustomUserDetailsService(UserRepository userRepository) {
+    this.userRepository = userRepository;
+  }
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    UserModel byLogin = userService.findByUsername(username);
-    if (username == null) {
-      throw new UsernameNotFoundException("User == null");
+    UserModel userModel = userRepository.findByUsername(username);
+    if (userModel == null) {
+      throw new UsernameNotFoundException("User not found");
     }
-    return User.builder()
-               .username(byLogin.getUsername())
-               .password(byLogin.getPassword())
-               .roles(byLogin.getRole().name())
-               .build();
+    return new UserPrincipal(userModel);
   }
 }
