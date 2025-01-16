@@ -18,8 +18,12 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
+  private final UserDetailsService userDetailsService;
+
   @Autowired
-  private UserDetailsService userDetailsService;
+  public SecurityConfig(UserDetailsService userDetailsService) {
+    this.userDetailsService = userDetailsService;
+  }
 
   @Bean
   public SecurityFilterChain filterChain(final HttpSecurity httpSecurity) throws Exception {
@@ -27,50 +31,39 @@ public class SecurityConfig {
     httpSecurity.csrf(AbstractHttpConfigurer::disable);
     httpSecurity.cors(AbstractHttpConfigurer::disable);
     httpSecurity.authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                    .requestMatchers("/admin")
-                    .hasRole("ADMIN")
-                    .requestMatchers("/user")
-                    .hasAnyRole("ADMIN", "USER")
-                    .requestMatchers("/", "/reports", "/styles/*", "/home", "/create", "/report", "/login", "/register")
-                    .permitAll()
-                    .requestMatchers(HttpMethod.GET, "/reports/create")
-                    .permitAll()
-                    .requestMatchers(HttpMethod.POST, "/reports/create")
-                    .permitAll()
-                    .requestMatchers(HttpMethod.POST, "/reports/createReport")
-                    .permitAll()
-                    .requestMatchers(HttpMethod.GET, "/reports/edit/*")
-                    .permitAll()
-                    .requestMatchers(HttpMethod.POST, "/reports/editReport")
-                    .permitAll()
-                    .requestMatchers(HttpMethod.GET, "/reports/delete/*")
-                    .permitAll()
-                    .anyRequest()
-                    .authenticated())
+                    .requestMatchers("/admin").hasRole("ADMIN")
+                    .requestMatchers("/user").hasAnyRole("ADMIN", "USER")
+                    .requestMatchers("/", "/reports", "/styles/*", "/home", "/create", "/report", "/login", "/register").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/reports/create").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/reports/create").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/reports/createReport").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/reports/edit/*").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/reports/editReport").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/reports/delete/*").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/weather").permitAll()
+                    .anyRequest().authenticated())
 
                 .formLogin(formLogin -> formLogin
                     .loginPage("/login")
                     .defaultSuccessUrl("/reports", true)
                     .permitAll())
 
-
                 .logout(LogoutConfigurer::permitAll);
 
     return httpSecurity.build();
   }
-
 
 //  @Bean
 //  public PasswordEncoder passwordEncoder() {
 //    return new BCryptPasswordEncoder();
 //  }
 
- @Bean
-  public AuthenticationProvider authenticationProvider(){
-   DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-   provider.setPasswordEncoder(new BCryptPasswordEncoder(12));
-   provider.setUserDetailsService(userDetailsService);
-   return provider;
- }
+  @Bean
+  public AuthenticationProvider authenticationProvider() {
+    DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+    provider.setPasswordEncoder(new BCryptPasswordEncoder(12));
+    provider.setUserDetailsService(userDetailsService);
+    return provider;
+  }
 
 }

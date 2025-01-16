@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public class ReportService {
 
-  private static List<ReportModel> reports;
+  private static final List<ReportModel> reports;
 
   static {
 
