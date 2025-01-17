@@ -13,11 +13,12 @@ public class JsonHttpClient {
   private final String PLACE = "Budapest";
   private final String API_KEY = "103f46d7699fbe29a360080cef60332a";
   private final String METRIC = "metric";
+  private final String FULL_URL = StringTemplate.STR."\{URL}?q=\{PLACE}&appid=\{API_KEY}&units=\{METRIC}";
 
-  public String getCurrencyUrl() { // дописать сюда headers
+  public String getCurrencyUrl() { // дописать сюда данные города
     HttpClient httpClient = HttpClient.newHttpClient();
     HttpRequest request = HttpRequest.newBuilder()
-        .uri(URI.create(CURRENCY_URL))
+        .uri(URI.create(FULL_URL))
         .GET().build();
     HttpResponse<String> response = null;
     try{
@@ -27,4 +28,5 @@ public class JsonHttpClient {
     }
     return response.body();
   }
+
 }

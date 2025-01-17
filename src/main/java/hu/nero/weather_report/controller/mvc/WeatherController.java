@@ -28,6 +28,7 @@ public class WeatherController {
 
       model.addAttribute("weather", weatherView);
       System.out.println(json);
+
     }
     catch (Exception exception) {
       exception.printStackTrace();
