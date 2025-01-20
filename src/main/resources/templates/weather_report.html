@@ -1,42 +1,46 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
-  <meta charset="UTF-8">
   <title>Weather Report</title>
 </head>
 <body>
-<div class="container mt-5">
-  <h1>Weather Information</h1>
-
-  <div th:if="${weatherResponse != null}">
-    <h2>Coordinates</h2>
-    <p>Longitude: <span th:text="${weatherResponse.coord.lon}"></span></p>
-    <p>Latitude: <span th:text="${weatherResponse.coord.lat}"></span></p>
-
-    <h2>Weather Details</h2>
-    <ul class="list-group">
-      <li class="list-group-item" th:each="weather : ${weatherResponse.weather}">
-        <strong>Main:</strong> <span th:text="${weather.main}"></span><br/>
-        <strong>Description:</strong> <span th:text="${weather.description}"></span><br/>
-      </li>
-    </ul>
-
-    <h2>Main Weather Data</h2>
-    <p>Temperature: <span th:text="${weatherResponse.main.temp} + ' °C'"></span></p>
-    <p>Pressure: <span th:text="${weatherResponse.main.pressure} + ' hPa'"></span></p>
-    <p>Humidity: <span th:text="${weatherResponse.main.humidity} + ' %'"></span></p>
-    <p>Min Temperature: <span th:text="${weatherResponse.main.tempMin} + ' °C'"></span></p>
-    <p>Max Temperature: <span th:text="${weatherResponse.main.tempMax} + ' °C'"></span></p>
-
-    <h2>Base</h2>
-    <p><span th:text="${weatherResponse.base}"></span></p>
+<h1>Weather Report</h1>
+<div th:if="${weatherResponses != null}">
+  <div th:each="weatherResponse : ${weatherResponses}">
+    <div>
+      <h2>Coordinates</h2>
+      <p>Longitude: <span th:text="${weatherResponse.coord.lon}"></span></p>
+      <p>Latitude: <span th:text="${weatherResponse.coord.lat}"></span></p>
+    </div>
+    <div>
+      <h2>Main</h2>
+      <p>Temperature: <span th:text="${weatherResponse.main.temp}"></span></p>
+      <p>Feels Like: <span th:text="${weatherResponse.main.feels_like}"></span></p>
+      <p>Pressure: <span th:text="${weatherResponse.main.pressure}"></span></p>
+      <p>Humidity: <span th:text="${weatherResponse.main.humidity}"></span></p>
+      <p>Min Temperature: <span th:text="${weatherResponse.main.temp_min}"></span></p>
+      <p>Max Temperature: <span th:text="${weatherResponse.main.temp_max}"></span></p>
+      <p>Sea Level: <span th:text="${weatherResponse.main.sea_level}"></span></p>
+      <p>Ground Level: <span th:text="${weatherResponse.main.grnd_level}"></span></p>
+    </div>
+    <div>
+      <h2>Weather</h2>
+      <div th:each="weather : ${weatherResponse.weather}">
+        <p>Weather ID: <span th:text="${weather.id}"></span></p>
+        <p>Main: <span th:text="${weather.main}"></span></p>
+        <p>Description: <span th:text="${weather.description}"></span></p>
+        <p>Icon: <img th:src="@{http://openweathermap.org/img/w/{weather.icon}.png}" alt="Weather Icon"/></p>
+      </div>
+    </div>
+    <div>
+      <h2>Base</h2>
+      <p>Base: <span th:text="${weatherResponse.base}"></span></p>
+    </div>
   </div>
-
-  <div th:if="${weatherResponse == null}">
-    <p>No weather data available.</p>
-  </div>
-
+</div>
+<div th:if="${weatherResponses == null}">
+  <p>No weather data available.</p>
 </div>
 </body>
 </html>
-

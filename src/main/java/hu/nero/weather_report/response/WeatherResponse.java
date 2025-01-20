@@ -1,15 +1,21 @@
-package hu.nero.weather_report.service;
+package hu.nero.weather_report.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+
 @Component
 @Getter
 @Setter
+@ToString
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class WeatherResponse {
+
   @JsonProperty("coord")
   private Coord coord;
 
@@ -24,6 +30,7 @@ public class WeatherResponse {
 
   @Getter
   @Setter
+  @ToString
   public static class Coord {
     @JsonProperty("lon")
     private double lon;
@@ -34,6 +41,7 @@ public class WeatherResponse {
 
   @Getter
   @Setter
+  @ToString
   public static class Weather {
     @JsonProperty("id")
     private int id;
@@ -50,9 +58,13 @@ public class WeatherResponse {
 
   @Getter
   @Setter
+  @ToString
   public static class Main {
     @JsonProperty("temp")
     private double temp;
+
+    @JsonProperty("feels_like")
+    private double feelsLike;
 
     @JsonProperty("pressure")
     private int pressure;
@@ -65,8 +77,18 @@ public class WeatherResponse {
 
     @JsonProperty("temp_max")
     private double tempMax;
+
+    @JsonProperty("sea_level")
+    private int seaLevel;
+
+    @JsonProperty("grnd_level")
+    private int grndLevel;
   }
 }
+
+
+
+
 
 
 

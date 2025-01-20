@@ -1,7 +1,7 @@
 package hu.nero.weather_report.controller.mvc;
 
 import hu.nero.weather_report.client.JsonHttpClient;
-import hu.nero.weather_report.service.WeatherResponse;
+import hu.nero.weather_report.response.WeatherResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,12 +22,11 @@ public class WeatherController {
   @GetMapping
   public String getWeather(Model model) {
     try {
-      WeatherResponse weatherView = (WeatherResponse) weatherResponse.getWeather();
-      JsonHttpClient jsonHttpClient = new JsonHttpClient();
-      var json = jsonHttpClient.getCurrencyUrl();
+      JsonHttpClient jsonHttpClient = new JsonHttpClient(weatherResponse);
+      WeatherResponse weatherResponses = jsonHttpClient.getWeatherData();
 
-      model.addAttribute("weather", weatherView);
-      System.out.println(json);
+      model.addAttribute("weatherResponse", weatherResponses.toString());
+      System.out.println(weatherResponses.toString());
 
     }
     catch (Exception exception) {
