@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" >
+
 <head>
   <title>Weather Report</title>
 </head>
@@ -30,7 +30,6 @@
         <p>Weather ID: <span th:text="${weather.id}"></span></p>
         <p>Main: <span th:text="${weather.main}"></span></p>
         <p>Description: <span th:text="${weather.description}"></span></p>
-        <p>Icon: <img th:src="@{http://openweathermap.org/img/w/{weather.icon}.png}" alt="Weather Icon"/></p>
       </div>
     </div>
     <div>

@@ -2,7 +2,6 @@ package hu.nero.weather_report.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.nero.weather_report.response.WeatherResponse;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.io.IOException;
@@ -12,7 +11,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 @Getter
-@AllArgsConstructor
 public class JsonHttpClient {
 
   private final String CURRENCY_URL =
@@ -23,19 +21,6 @@ public class JsonHttpClient {
   private final String METRIC = "metric";
   private final String FULL_URL = StringTemplate.STR."\{URL}?q=\{PLACE}&appid=\{API_KEY}&units=\{METRIC}";
   private WeatherResponse weatherResponse;
-//  public String getCurrencyUrl() { // дописать сюда данные города
-//    HttpClient httpClient = HttpClient.newHttpClient();
-//    HttpRequest request = HttpRequest.newBuilder()
-//        .uri(URI.create(FULL_URL))
-//        .GET().build();
-//    HttpResponse<String> response = null;
-//    try{
-//      response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-//    } catch (IOException | InterruptedException exception) {
-//      throw new RuntimeException(exception);
-//    }
-//    return response.body();
-//  }
 
   public WeatherResponse getWeatherData() {
     HttpClient httpClient = HttpClient.newHttpClient();
