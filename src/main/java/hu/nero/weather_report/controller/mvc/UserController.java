@@ -31,7 +31,8 @@ public class UserController {
 
   @PostMapping("/register")
   public String registerUser(UserModel userModel, Model model) {
-    if (!userService.findUserInDataBase(userModel)) {
+    boolean result = userService.findUserInDataBase(userModel);
+    if (!result) {
       userService.register(userModel);
       return "redirect:/login?success";
     }
