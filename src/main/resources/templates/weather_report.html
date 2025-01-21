@@ -6,8 +6,8 @@
 </head>
 <body>
 <h1>Weather Report</h1>
-<div th:if="${weatherResponses != null}">
-  <div th:each="weatherResponse : ${weatherResponses}">
+<div th:if="${weatherResponse != null}">
+<!--  <div th:each="weatherResponse : ${weatherResponses}">-->
     <div>
       <h2>Coordinates</h2>
       <p>Longitude: <span th:text="${weatherResponse.coord.lon}"></span></p>
@@ -37,8 +37,8 @@
       <p>Base: <span th:text="${weatherResponse.base}"></span></p>
     </div>
   </div>
-</div>
-<div th:if="${weatherResponses == null}">
+<!--</div>-->
+<div th:if="${weatherResponse == null}">
   <p>No weather data available.</p>
 </div>
 </body>

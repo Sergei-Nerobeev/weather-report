@@ -33,10 +33,7 @@ public class UserService {
 
   public boolean findUserInDataBase(UserModel userModel) {
     UserModel userFromDb = userRepository.findByUsername(userModel.getUsername());
-    if (userFromDb == null || userFromDb.getUsername().equals(userModel.getUsername())) {
-      return false;
-    }
-    return true;
+      return userFromDb != null && !userFromDb.getUsername().equals(userModel.getUsername());
   }
 
   //  protected static List<UserModel> users = new ArrayList<>();

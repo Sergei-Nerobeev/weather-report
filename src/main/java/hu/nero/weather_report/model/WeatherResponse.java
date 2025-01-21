@@ -1,4 +1,4 @@
-package hu.nero.weather_report.response;
+package hu.nero.weather_report.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

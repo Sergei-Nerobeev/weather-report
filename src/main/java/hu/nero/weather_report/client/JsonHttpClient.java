@@ -1,8 +1,9 @@
 package hu.nero.weather_report.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hu.nero.weather_report.response.WeatherResponse;
+import hu.nero.weather_report.model.WeatherResponse;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
 import java.net.URI;

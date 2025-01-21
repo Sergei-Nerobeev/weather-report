@@ -1,7 +1,7 @@
 package hu.nero.weather_report.controller.mvc;
 
 import hu.nero.weather_report.client.JsonHttpClient;
-import hu.nero.weather_report.response.WeatherResponse;
+import hu.nero.weather_report.model.WeatherResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
