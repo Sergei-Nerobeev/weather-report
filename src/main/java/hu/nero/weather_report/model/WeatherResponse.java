@@ -56,15 +56,15 @@ public class WeatherResponse {
     private String icon;
   }
 
-  @Getter
-  @Setter
-  @ToString
+ @Getter
+ @Setter
+ @ToString
   public static class Main {
     @JsonProperty("temp")
-    private double temp;
+    private Double temp;
 
     @JsonProperty("feels_like")
-    private double feelsLike;
+    public Double feelsLike;
 
     @JsonProperty("pressure")
     private int pressure;
