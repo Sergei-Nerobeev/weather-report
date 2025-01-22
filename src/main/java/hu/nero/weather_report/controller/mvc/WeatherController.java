@@ -1,7 +1,10 @@
 package hu.nero.weather_report.controller.mvc;
 
-import hu.nero.weather_report.client.JsonHttpClient;
 import hu.nero.weather_report.model.WeatherResponse;
+import hu.nero.weather_report.service.WeatherJsonHttpClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,22 +14,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/weather")
 public class WeatherController {
 
+private final Logger logger = LoggerFactory.getLogger(WeatherController.class);
+  private final WeatherJsonHttpClient weatherJsonHttpClient;
+
+  @Autowired
+  public WeatherController(WeatherJsonHttpClient weatherJsonHttpClient) {
+    this.weatherJsonHttpClient = weatherJsonHttpClient;
+  }
+
   @GetMapping
   public String getWeather(Model model) {
     try {
-      JsonHttpClient jsonHttpClient = new JsonHttpClient();
-      WeatherResponse weatherResponses = jsonHttpClient.getWeatherData();
+      WeatherResponse weatherResponse = weatherJsonHttpClient.getWeatherData();
 
-      model.addAttribute("weatherResponse", weatherResponses);
-      System.out.println(weatherResponses);
+      model.addAttribute("weatherResponse", weatherResponse);
+      logger.info("Weather data added to model: {}", weatherResponse);
+//      System.out.println(weatherResponse);
 
     }
     catch (Exception exception) {
-      exception.printStackTrace();
+      logger.error("Unable to fetch weather data", exception);
       model.addAttribute("error", "Unable to fetch weather data");
     }
     return "weather_report";
   }
-
 
 }

@@ -13,12 +13,10 @@ public class UserService {
 
   private final UserRepository userRepository;
   private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
-  private final CustomUserDetailsService customUserDetailsService;
 
   @Autowired
   public UserService(UserRepository userRepository, CustomUserDetailsService customUserDetailsService) {
     this.userRepository = userRepository;
-    this.customUserDetailsService = customUserDetailsService;
   }
 
   public UserModel register(UserModel userModel) {
@@ -32,20 +30,9 @@ public class UserService {
     throw new UsernameNotFoundException("User not found");
   }
 
-//  public UserModel register(UserModel userModel) {
-//    var result = customUserDetailsService.loadUserByUsername(userModel.getUsername());
-//    if (!result.getUsername().equals(userModel.getUsername())) {
-//      userModel.setRole(UserRole.USER);
-//      userModel.setUsername(userModel.getUsername());
-//      userModel.setPassword(encoder.encode(userModel.getPassword()));
-//      return userRepository.save(userModel);
-//    }
-//    throw new UsernameNotFoundException("User not found");
-//  }
-
   public boolean isUserInDataBase(UserModel userModel) {
     UserModel userFromDb = userRepository.findByUsername(userModel.getUsername());
-      return userFromDb != null && userFromDb.getUsername().equals(userModel.getUsername());
+    return userFromDb != null && userFromDb.getUsername().equals(userModel.getUsername());
   }
 
   //  protected static List<UserModel> users = new ArrayList<>();
