@@ -1,5 +1,6 @@
-package hu.nero.weather_report.model;
+package hu.nero.weather_report.security;
 
+import hu.nero.weather_report.model.UserModel;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

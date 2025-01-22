@@ -1,7 +1,7 @@
 package hu.nero.weather_report.service;
 
 import hu.nero.weather_report.model.UserModel;
-import hu.nero.weather_report.model.UserPrincipal;
+import hu.nero.weather_report.security.UserPrincipal;
 import hu.nero.weather_report.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
