@@ -12,13 +12,12 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
   private final UserRepository userRepository;
+  private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
   @Autowired
   public UserService(UserRepository userRepository) {
     this.userRepository = userRepository;
   }
-
-  private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
   public UserModel register(UserModel userModel) {
     boolean result = findUserInDataBase(userModel);
@@ -28,7 +27,7 @@ public class UserService {
       userModel.setPassword(encoder.encode(userModel.getPassword()));
       return userRepository.save(userModel);
     }
-    throw new UsernameNotFoundException("User already exist");
+    throw new UsernameNotFoundException("User not found");
   }
 
   public boolean findUserInDataBase(UserModel userModel) {
