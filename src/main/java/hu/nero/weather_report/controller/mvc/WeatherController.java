@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/weather")
 public class WeatherController {
 
-private final Logger logger = LoggerFactory.getLogger(WeatherController.class);
+  private final Logger logger = LoggerFactory.getLogger(WeatherController.class);
   private final WeatherJsonHttpClient weatherJsonHttpClient;
 
   @Autowired
@@ -26,11 +26,8 @@ private final Logger logger = LoggerFactory.getLogger(WeatherController.class);
   public String getWeather(Model model) {
     try {
       WeatherResponse weatherResponse = weatherJsonHttpClient.getWeatherData();
-
       model.addAttribute("weatherResponse", weatherResponse);
       logger.info("Weather data added to model: {}", weatherResponse);
-//      System.out.println(weatherResponse);
-
     }
     catch (Exception exception) {
       logger.error("Unable to fetch weather data", exception);
