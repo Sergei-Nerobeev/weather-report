@@ -1,4 +1,4 @@
-package hu.nero.weather_report.config;
+package hu.nero.weather_report.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -41,6 +41,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.POST, "/reports/editReport").permitAll()
                     .requestMatchers(HttpMethod.GET, "/reports/delete/*").permitAll()
                     .requestMatchers(HttpMethod.GET, "/weather").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/weather").permitAll()
                     .anyRequest().authenticated())
 
                 .formLogin(formLogin -> formLogin
@@ -60,6 +61,5 @@ public class SecurityConfig {
     provider.setUserDetailsService(userDetailsService);
     return provider;
   }
-
 
 }

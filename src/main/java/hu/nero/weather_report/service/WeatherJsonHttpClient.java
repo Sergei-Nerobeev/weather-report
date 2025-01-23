@@ -21,8 +21,8 @@ public class WeatherJsonHttpClient {
   @Value("${weather.api.key}")
   private String apiKey;
 
-  @Value("${weather.api.place}")
-  private String place;
+//  @Value("${weather.api.place}")
+//  private String place;
 
   private final HttpClient httpClient;
   private final ObjectMapper objectMapper;
@@ -33,7 +33,7 @@ public class WeatherJsonHttpClient {
     this.objectMapper = objectMapper;
   }
 
-  public WeatherResponse getWeatherData() {
+  public WeatherResponse getWeatherData(String place) {
 
     HttpRequest request = HttpRequest.newBuilder()
                                      .uri(URI.create(StringTemplate.STR."\{url}?q=\{place}&appid=\{apiKey}&units=metric"))

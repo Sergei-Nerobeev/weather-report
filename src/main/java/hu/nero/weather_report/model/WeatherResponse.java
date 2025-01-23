@@ -16,8 +16,8 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WeatherResponse {
 
-  @JsonProperty("coord")
-  private Coord coord;
+//  @JsonProperty("coord")
+//  private Coord coord;
 
   @JsonProperty("weather")
   private List<Weather> weather;
@@ -25,19 +25,19 @@ public class WeatherResponse {
   @JsonProperty("main")
   private Main main;
 
-  @JsonProperty("base")
-  private String base;
+//  @JsonProperty("base")
+//  private String base;
 
-  @Getter
-  @Setter
-  @ToString
-  public static class Coord {
-    @JsonProperty("lon")
-    private double lon;
-
-    @JsonProperty("lat")
-    private double lat;
-  }
+//  @Getter
+//  @Setter
+//  @ToString
+//  public static class Coord {
+//    @JsonProperty("lon")
+//    private double lon;
+//
+//    @JsonProperty("lat")
+//    private double lat;
+//  }
 
   @Getter
   @Setter

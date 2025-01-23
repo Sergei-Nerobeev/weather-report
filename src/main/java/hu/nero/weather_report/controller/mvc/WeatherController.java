@@ -7,8 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/weather")
@@ -22,10 +23,10 @@ public class WeatherController {
     this.weatherJsonHttpClient = weatherJsonHttpClient;
   }
 
-  @GetMapping
-  public String getWeather(Model model) {
+  @PostMapping
+  public String getWeatherReport(@RequestParam("location") String location, Model model) {
     try {
-      WeatherResponse weatherResponse = weatherJsonHttpClient.getWeatherData();
+      WeatherResponse weatherResponse = weatherJsonHttpClient.getWeatherData(location);
       model.addAttribute("weatherResponse", weatherResponse);
       logger.info("Weather data added to model: {}", weatherResponse);
     }
