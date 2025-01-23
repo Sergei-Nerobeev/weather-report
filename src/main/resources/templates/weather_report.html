@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
-
 <head>
   <title>Weather Report</title>
 </head>
@@ -8,6 +7,7 @@
 <h1>Weather Report</h1>
 <div th:if="${weatherResponse != null}">
   <div>
+    <span th:text="${' ' + location}"></span>
     <p>Temperature: <span th:text="${weatherResponse.main.temp}"></span></p>
     <p>Feels Like: <span th:text="${weatherResponse.main.feelsLike}"></span></p>
     <p>Pressure: <span th:text="${weatherResponse.main.pressure}"></span></p>
@@ -18,7 +18,6 @@
     <p>Ground Level: <span th:text="${weatherResponse.main.grndLevel}"></span></p>
   </div>
   <div>
-    <h2>Weather</h2>
     <div th:each="weather : ${weatherResponse.weather}">
       <p>Weather ID: <span th:text="${weather.id}"></span></p>
       <p>Main: <span th:text="${weather.main}"></span></p>
@@ -29,6 +28,6 @@
 <div th:if="${weatherResponse == null}">
   <p>No weather data available.</p>
 </div>
-  <a href="/reports">Back to reports</a>
+<button onclick="window.location.href='/reports'">Back to reports</button>
 </body>
 </html>
