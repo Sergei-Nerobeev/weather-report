@@ -4,10 +4,10 @@
   <title>Weather Report</title>
 </head>
 <body>
-<h1>Weather Report</h1>
+<h2>Weather Report</h2>
 <div th:if="${weatherResponse != null}">
   <div>
-    <p><strong>Location:</strong><span th:text="${location}"></span></p>
+    <p><strong>Location:</strong><span th:text="${' ' + location}"></span></p>
     <p>Temperature: <span th:text="${weatherResponse.main.temp}"></span></p>
     <p>Feels Like: <span th:text="${weatherResponse.main.feelsLike}"></span></p>
     <p>Pressure: <span th:text="${weatherResponse.main.pressure}"></span></p>

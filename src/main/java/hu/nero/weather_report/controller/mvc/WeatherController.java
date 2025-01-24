@@ -1,5 +1,6 @@
 package hu.nero.weather_report.controller.mvc;
 
+import hu.nero.weather_report.exception.PlaceNotFoundException;
 import hu.nero.weather_report.model.WeatherResponse;
 import hu.nero.weather_report.service.WeatherJsonHttpClient;
 import org.slf4j.Logger;
@@ -25,16 +26,15 @@ public class WeatherController {
 
   @PostMapping
   public String getWeatherReport(@RequestParam("location") String location, Model model) {
-    try {
-      WeatherResponse weatherResponse = weatherJsonHttpClient.getWeatherData(location);
-      model.addAttribute("location", location);
-      model.addAttribute("weatherResponse", weatherResponse);
-      logger.info("Weather data added to model: {}", weatherResponse);
+    WeatherResponse weatherResponse = weatherJsonHttpClient.getWeatherData(location);
+    if (weatherResponse.getWeather() == null || location == null) {
+      logger.error("Place not found: {}", location);
+      throw new PlaceNotFoundException(StringTemplate.STR."Place not found: \{location}");
     }
-    catch (Exception exception) {
-      logger.error("Unable to fetch weather data", exception);
-      model.addAttribute("error", "Unable to fetch weather data");
-    }
+    model.addAttribute("location", location);
+    model.addAttribute("weatherResponse", weatherResponse);
+    logger.info("Weather data added to model: {}", StringTemplate.STR."\{location} \{weatherResponse}");
+
     return "weather_report";
   }
 
