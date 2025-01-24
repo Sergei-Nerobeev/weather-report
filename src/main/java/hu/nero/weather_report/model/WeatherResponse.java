@@ -16,28 +16,11 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WeatherResponse {
 
-//  @JsonProperty("coord")
-//  private Coord coord;
-
   @JsonProperty("weather")
   private List<Weather> weather;
 
   @JsonProperty("main")
   private Main main;
-
-//  @JsonProperty("base")
-//  private String base;
-
-//  @Getter
-//  @Setter
-//  @ToString
-//  public static class Coord {
-//    @JsonProperty("lon")
-//    private double lon;
-//
-//    @JsonProperty("lat")
-//    private double lat;
-//  }
 
   @Getter
   @Setter
@@ -56,9 +39,9 @@ public class WeatherResponse {
     private String icon;
   }
 
- @Getter
- @Setter
- @ToString
+  @Getter
+  @Setter
+  @ToString
   public static class Main {
     @JsonProperty("temp")
     private Double temp;

@@ -27,6 +27,7 @@ public class WeatherController {
   public String getWeatherReport(@RequestParam("location") String location, Model model) {
     try {
       WeatherResponse weatherResponse = weatherJsonHttpClient.getWeatherData(location);
+      model.addAttribute("location", location);
       model.addAttribute("weatherResponse", weatherResponse);
       logger.info("Weather data added to model: {}", weatherResponse);
     }
