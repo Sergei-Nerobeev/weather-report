@@ -28,10 +28,6 @@ public class UserModel {
     private String password;
 
     @Column(name="role")
+    @Enumerated(EnumType.STRING)
     private UserRole role;
-//    @ManyToMany
-//    @JoinTable(name = "users_roles",
-//               joinColumns = @JoinColumn(name = "user_id"),
-//               inverseJoinColumns = @JoinColumn(name = "role_id"))
-//    private Collection<RoleModel> roles;
 }
